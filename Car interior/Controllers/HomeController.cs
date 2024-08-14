@@ -8,9 +8,11 @@ namespace Car_market.Controllers
 {
     public class HomeController : Controller
     {
-        private CarsDbContext context = new();
-        public HomeController()
+        private readonly CarsDbContext context;
+
+        public HomeController(CarsDbContext context)
         {
+            this.context = context;
         }
 
         public IActionResult Index()

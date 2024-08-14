@@ -12,12 +12,13 @@ namespace Car_market.Controllers
 {
     public class ProductsController : Controller
     {
-        private CarsDbContext ctx = new CarsDbContext();
+        private readonly CarsDbContext ctx;
         private readonly IMapper mapper;
 
-        public ProductsController(IMapper mapper)
+        public ProductsController(IMapper mapper, CarsDbContext context)
         {
             this.mapper = mapper;
+            this.ctx = context;
         }
 
         public IActionResult Index()

@@ -2,7 +2,7 @@
 using Core.Dtos;
 using Car_market.Extensions;
 
-namespace Car_interior.Services
+namespace Car_market.Services
 {
     public class CartService
     {

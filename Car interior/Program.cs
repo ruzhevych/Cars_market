@@ -2,17 +2,29 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Core.Validations;
 using Core.MapperProfiles;
+using Microsoft.AspNetCore.Identity;
+using Data.Data;
+using Microsoft.EntityFrameworkCore;
+using Car_market.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string? connectionString = builder.Configuration.GetConnectionString("LocalDb");
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<CarsDbContext>(options => 
+    options.UseSqlServer(connectionString)
+);
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddAutoMapper(typeof(AppProfile));
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();
 
@@ -22,6 +34,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// ------ configure custom services
+builder.Services.AddScoped<CartService>();
 
 var app = builder.Build();
 

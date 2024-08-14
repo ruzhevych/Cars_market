@@ -8,6 +8,9 @@ namespace Data.Data
         public DbSet<Cars> Cars { get; set; }
         public DbSet<Category> Categories { get; set; }
 
+        public CarsDbContext() { }
+        public CarsDbContext(DbContextOptions options) : base(options) { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
