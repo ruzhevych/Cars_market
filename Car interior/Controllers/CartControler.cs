@@ -22,10 +22,10 @@ namespace Car_market.Controllers
             return View(cartService.GetProducts());
         }
 
-        public IActionResult Add(int id)
+        public IActionResult Add(int id, string returnUrl)
         {
             cartService.AddItem(id);
-            return RedirectToAction("Index");
+            return Redirect(returnUrl ?? "/");
         }
 
         public IActionResult Remove(int id)

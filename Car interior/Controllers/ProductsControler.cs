@@ -32,6 +32,15 @@ namespace Car_market.Controllers
             return View(mapper.Map<List<CarsDto>>(cars));
         }
 
+        public IActionResult Details(int id)
+        {
+            var product = ctx.Cars.Find(id);
+
+            if (product == null) return NotFound();
+
+            return View(mapper.Map<CarsDto>(product));
+        }
+
         // GET: 
         [HttpGet]
         public IActionResult Create()

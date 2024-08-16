@@ -4,12 +4,14 @@
     <div class="card h-100">
         <img height="180" src="@Model.ImageUrl" class="card-img-top" alt="@Model.Name">
         <div class="card-body">
-            <h5 class="card-title">@Model.Name</h5>
+            <h5 class="card-title">
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a>
+            </h5>
             <p class="card-text">
                 @Model.Category?.Name<br />
                 Left: @Model.Quantity
             </p>
-            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary">Add to Cart</a>
+            <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary" asp-route-returnUrl="@Context.Request.Path">Add to Cart</a>
         </div>
         <div class="card-footer">
             <small class="text-muted">
