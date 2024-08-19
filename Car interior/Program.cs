@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Car_market.Services;
+using Data.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CarsDbContext>(options => 
     options.UseSqlServer(connectionString)
 );
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CarsDbContext>();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -57,6 +60,7 @@ app.UseAuthorization();
 
 app.UseSession();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

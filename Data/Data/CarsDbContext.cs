@@ -1,9 +1,10 @@
 ﻿using Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Data
 {
-    public class CarsDbContext : DbContext
+    public class CarsDbContext : IdentityDbContext<User>
     {
         public DbSet<Cars> Cars { get; set; }
         public DbSet<Category> Categories { get; set; }
