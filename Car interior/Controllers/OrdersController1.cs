@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Dtos;
 using Core.Interfaces;
+using Core.Services;
 using Data.Data;
 using Data.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -13,39 +14,21 @@ namespace Car_interior.Controllers
     [Authorize]
     public class OrdersController : Controller
     {
-        private readonly CarsDbContext context;
-        private readonly IMapper mapper;
-        private readonly ICartService cartService;
+        private readonly IOrdersService ordersService;
         private string UserId => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
 
-        public OrdersController(CarsDbContext context, IMapper mapper, ICartService cartService)
+        public OrdersController(IOrdersService ordersService)
         {
-            this.context = context;
-            this.mapper = mapper;
-            this.cartService = cartService;
+            this.ordersService = ordersService;
         }
         public IActionResult Index()
         {
-            var orders = context.Orders.Include(x => x.User)
-                                        .Where(x => x.UserId == UserId)
-                                        .ToList();
-            return View(mapper.Map<List<OrderDto>>(orders));
+            return View(ordersService.GetOrders(UserId));
         }
 
         public IActionResult Create()
         {
-            // create order
-            var newOrder = new Order()
-            {
-                CreatedAt = DateTime.Now,
-                Cars = cartService.GetProductsEntity(),
-                UserId = this.UserId
-            };
-
-            context.Orders.Add(newOrder);
-            context.SaveChanges();
-
-            cartService.Clear();
+            ordersService.Create(UserId);
 
             return RedirectToAction(nameof(Index));
         }
