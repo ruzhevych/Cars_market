@@ -7,6 +7,7 @@ using Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Car_market.Services;
 using Data.Entities;
+using Core.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,7 @@ builder.Services.AddSession(options =>
 });
 
 // ------ configure custom services
-builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 

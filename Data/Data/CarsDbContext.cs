@@ -8,6 +8,8 @@ namespace Data.Data
     {
         public DbSet<Cars> Cars { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Order> Orders { get; set; }
+
 
         public CarsDbContext() { }
         public CarsDbContext(DbContextOptions options) : base(options) { }

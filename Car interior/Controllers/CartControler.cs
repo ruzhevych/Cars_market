@@ -5,14 +5,15 @@ using Data.Data;
 using Car_market.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Core.Interfaces;
 
 namespace Car_market.Controllers
 {
     public class CartController : Controller
     {
-        private readonly CartService cartService;
+        private readonly ICartService cartService;
 
-        public CartController(CartService cartService)
+        public CartController(ICartService cartService)
         {
             this.cartService = cartService;
         }

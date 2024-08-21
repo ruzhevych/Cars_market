@@ -1,4 +1,6 @@
-﻿namespace Core.Dtos
+﻿﻿using Data.Entities;
+
+namespace Core.Dtos
 {
     public class CarsDto
     {

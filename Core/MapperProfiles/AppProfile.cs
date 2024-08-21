@@ -8,7 +8,11 @@ namespace Core.MapperProfiles
     {
         public AppProfile()
         {
-                 CreateMap<CarsDto, Cars>().ReverseMap();
+            CreateMap<CarsDto, Cars>().ReverseMap();
+
+            CreateMap<Order, OrderDto>()
+                .ForMember(x => x.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(x => x.ProductsCount, opt => opt.MapFrom(src => src.Cars.Count));
         }
     }
 }

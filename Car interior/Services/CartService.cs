@@ -1,21 +1,15 @@
 ﻿﻿using AutoMapper;
 using Core.Dtos;
 using Data.Data;
+using Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Car_market.Extensions;
+using Core.Interfaces;
 
 namespace Car_market.Services
 {
-    //public interface ICartService
-    //{
-    //    int GetCount();
-    //    void AddItem(int id);
-    //    void RemoveItem(int id);
-    //    List<ProductDto> GetProducts();
-    //}
-
-    public class CartService
+    public class CartService : ICartService
     {
         private readonly HttpContext httpContext;
         private readonly IMapper mapper;
@@ -45,6 +39,13 @@ namespace Car_market.Services
             return mapper.Map<List<CarsDto>>(products);
         }
 
+        public List<Cars> GetProductsEntity()
+        {
+            var ids = httpContext.Session.Get<List<int>>("cart_items") ?? new();
+
+            return context.Cars.Include(x => x.Category).Where(x => ids.Contains(x.Id)).ToList();
+        }
+
         public void AddItem(int id)
         {
             var ids = httpContext.Session.Get<List<int>>("cart_items");
@@ -65,6 +66,11 @@ namespace Car_market.Services
             ids.Remove(id);
 
             httpContext.Session.Set("cart_items", ids);
+        }
+
+        public void Clear()
+        {
+            httpContext.Session.Remove("cart_items");
         }
     }
 }
