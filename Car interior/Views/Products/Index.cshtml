@@ -3,16 +3,10 @@
 <h1>Cars List</h1>
 <p>You can manage products here.</p>
 
-<div class="text-start">
-    <a asp-action="Create" class="btn btn-primary mb-3">
-        <i class="bi bi-plus-lg"></i>
-        Create New Product
-    </a>
-</div>
 
-<table class="table admin-product-table">
+<table class="table table-hover">
     <thead>
-        <tr class="table-dark">
+        <tr class="table-secondary">
             <th scope="col">#</th>
             <th scope="col" class="text-center">Image</th>
             <th scope="col">Name</th>
@@ -48,10 +42,10 @@
                     }
                 </td>
                 <td>
-                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-warning">
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-secondary custom-btn">
                         <i class="bi bi-pencil-fill"></i>
                     </a>
-                    <a asp-controller="Products" asp-action="ArchiveItem" asp-route-id="@i.Id" class="btn btn-outline-secondary">
+                    <a asp-controller="Products" asp-action="ArchiveItem" asp-route-id="@i.Id" class="btn btn-outline-secondary custom-btn">
                         <i class="bi bi-archive-fill"></i>
                     </a>
                 </td>
@@ -61,9 +55,18 @@
 </table>
 <p>Count: @Model.Count</p>
 
-<div>
-    <a asp-action="Archive" class="btn btn-secondary">
-        <i class="bi bi-archive-fill"></i>
-        <span>Show Archived Items</span>
-    </a>
+<div class="d-flex justify-content-between">
+    <div class="text-start">
+        <a asp-action="Create" class="btn btn-success custom-btn mb-3">
+            <i class="bi bi-plus-lg"></i>
+            Create New Product
+        </a>
+    </div>
+
+    <div>
+        <a asp-action="Archive" class="btn btn-secondary custom-btn mb-3">
+            <i class="bi bi-archive-fill"></i>
+            <span>Show Archived Items</span>
+        </a>
+    </div>
 </div>

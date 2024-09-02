@@ -7,6 +7,14 @@
 
     <p>Price: @Model.Price$</p>
 
+    <p class="card-text">
+        Characteristic
+        <small class="text-body-secondary card-info">
+            <p><i class="fas fa-gas-pump"></i> Бензин, 2.99 л.</p>
+            <p><i class="fas fa-cog"></i> Автомат</p>
+        </small>
+    </p>
+
     <p>Description : @Model.Description</p>
 
     <a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id" asp-route-returnUrl="@Context.Request.Path" class="btn btn-primary">Add to Cart</a>

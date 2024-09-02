@@ -2,10 +2,10 @@
 
 <div class="card text-center">
     <div class="card-header">
-        My Cart
+        My favorites cars
     </div>
     <div class="card-body">
-        <h5 class="card-title">Cart Product List</h5>
+        <h5 class="card-title">Favorites</h5>
 
         @if (Model.Any())
         {
@@ -15,7 +15,9 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <img class="ms-2" height="48" src="@i.ImageUrl" alt="@i.Name" />
                         <div class="ms-2 me-auto">
-                            <div class="fw-bold text-start">@i.Name</div>
+                            <div class="fw-bold text-start">
+                                <a asp-controller="Products" asp-action="Details" asp-route-id="@i.Id" class="custom-title">@i.Name</a>
+                            </div>
                             @i.CategoryName | Stock: @i.Quantity
                         </div>
                         <span style="background-color: #0d6efd" class="badge text-bg-primary">@i.Price$</span>
@@ -25,10 +27,12 @@
                     </li>
                 }
             </ol>
+
+            <a asp-controller="Orders" asp-action="Create" class="btn btn-success mt-3">Confirm</a>
         }
         else
         {
-            <p class="mt-4">Looks like your cart is empty</p>
+            <p class="mt-4">No favorite cars yet</p>
             <div>
                 <a asp-controller="Home" class="btn btn-primary mt-3">
                     Browse Our Store
@@ -36,10 +40,5 @@
             </div>
         }
 
-        <a asp-controller="Orders" asp-action="Create" class="btn btn-success mt-3">Confirm</a>
-
-    </div>
-    <div class="card-footer text-body-secondary">
-        Total: @Model.Sum(x => x.Price)$
     </div>
 </div>

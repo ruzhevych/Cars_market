@@ -39,3 +39,99 @@ body {
     object-fit: contain;
     margin-top: 4px;
 }
+
+
+
+
+.custom-card {
+    width: 100%;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    color: #333;
+    transition: transform 0.2s;
+}
+
+    .custom-card:hover {
+        transform: scale(1.02);
+    }
+
+.card-img-top, .img-fluid {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.custom-title {
+    color: #007bff;
+    text-decoration: none;
+}
+
+    .custom-title:hover {
+        text-decoration: underline;
+    }
+
+.card-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.btn-outline-danger {
+    border-radius: 20px;
+    color: #dc3545;
+    border-color: #dc3545;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+.custom-footer {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+
+.table.admin-product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
+}
+
+.table-dark {
+    background-color: #343a40;
+    color: #fff;
+}
+
+    .table-dark th {
+        padding: 10px;
+        border: 1px solid #dee2e6;
+    }
+
+.align-middle {
+    vertical-align: middle !important;
+}
+
+.custom-btn {
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+.btn-primary.custom-btn {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary.custom-btn {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-warning.custom-btn:hover,
+.btn-outline-secondary.custom-btn:hover {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
