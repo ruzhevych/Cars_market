@@ -7,9 +7,13 @@ using Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Core.Dtos;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Car_market.SeedExtensions;
 
 namespace Car_market.Controllers
 {
+     [Authorize(Roles = Roles.ADMIN)]
     public class ProductsController : Controller
     {
         private readonly CarsDbContext ctx;
@@ -32,6 +36,7 @@ namespace Car_market.Controllers
             return View(mapper.Map<List<CarsDto>>(cars));
         }
 
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var product = ctx.Cars.Find(id);

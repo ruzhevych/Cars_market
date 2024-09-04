@@ -9,6 +9,9 @@ using Car_market.Services;
 using Data.Entities;
 using Core.Interfaces;
 using Core.Services;
+using Car_market.SeedExtensions;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using static System.Formats.Asn1.AsnWriter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +19,17 @@ string? connectionString = builder.Configuration.GetConnectionString("LocalDb");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<CarsDbContext>(options => 
     options.UseSqlServer(connectionString)
 );
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CarsDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+    options.SignIn.RequireConfirmedAccount = true)
+    .AddDefaultTokenProviders()
+    .AddDefaultUI() // fix error with IEmailSender
+    .AddEntityFrameworkStores<CarsDbContext>();
 
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -43,8 +51,18 @@ builder.Services.AddSession(options =>
 // ------ configure custom services
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<IFilesService, FilesService>();
+builder.Services.AddScoped<IEmailSender, EmailService>();
+builder.Services.AddScoped<IViewRender, ViewRender>();
 
 var app = builder.Build();
+
+
+using(var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.SeedRoles().Wait();
+    scope.ServiceProvider.SeedAdmin().Wait();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
